@@ -1,12 +1,12 @@
 import json
 from typing import Any
 
-from models.model import Model
+from models.openai import OpenAIModel
 from openai import ChatCompletion
 from utils.screen import Screen
 
 
-class GPT4v(Model):
+class GPT4v(OpenAIModel):
     def get_instructions_for_objective(self, original_user_request: str, step_num: int = 0) -> dict[str, Any]:
         message: list[dict[str, Any]] = self.format_user_request_for_llm(original_user_request, step_num)
         llm_response = self.send_message_to_llm(message)

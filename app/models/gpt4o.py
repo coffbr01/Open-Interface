@@ -2,7 +2,7 @@ import json
 import time
 from typing import Any
 
-from models.model import Model
+from models.openai import OpenAIModel
 from openai.types.beta.threads.message import Message
 from utils.screen import Screen
 
@@ -10,7 +10,7 @@ from utils.screen import Screen
 # TODO
 # [ ] Function calling with assistants api - https://platform.openai.com/docs/assistants/tools/function-calling/quickstart
 
-class GPT4o(Model):
+class GPT4o(OpenAIModel):
     def __init__(self, model_name, base_url, api_key, context):
         super().__init__(model_name, base_url, api_key, context)
 
