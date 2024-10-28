@@ -49,22 +49,19 @@ class OllamaModel(Model):
         with open(filepath, 'rb') as image_file:
             encoded_string = base64.b64encode(image_file.read())
 
-        # Done reading screenshot. Delete it.
-        # os.remove(filepath)
-
         return encoded_string.decode('utf-8')
 
     def format_user_request_for_llm(self, original_user_request, step_num, encoded_screenshot) -> dict[str, Any]:
-        content = 'Step number: ' + str(step_num) + "\n\nOriginal request: " + original_user_request
-
         return {
             'role': 'user',
-            'content': content, 
+            'content': original_user_request, 
             'images': [encoded_screenshot]
         }
 
     def convert_llm_response_to_json_instructions(self, llm_response: Any) -> dict[str, Any]:
         llm_response_data: str = llm_response['message']['content'].strip()
+        print('llm responded:\n')
+        print(llm_response_data)
 
         # Our current LLM model does not guarantee a JSON response hence we manually parse the JSON part of the response
         # Check for updates here - https://platform.openai.com/docs/guides/text-generation/json-mode
